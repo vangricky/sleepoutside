@@ -8,36 +8,32 @@ export default async function productDetails(productId, selector){
     const el = document.querySelector(selector);
     el.insertAdjacentHTML("afterBegin", productDetailsTemplate(product));
     document.getElementById("addToCart").addEventListener("click", addProductToCart);
-
+    
+    // add listener to Add to Cart button
+    document
+      .getElementById("addToCart")
+      .addEventListener("click", addToCartHandler);
 
 }
 
-function addProductToCart(product) {
+function addProductToCart(productCart) {
   
     // // Retrieve existing data from local storage
     // let existingData = getLocalStorage("so-cart");
-  
     // // If there is existing data, append the new data to it
     // if (existingData) {
-    //   existingData.push(product);
+    //   existingData.push(productCart);
     //    localStorage.setItem("so-cart", JSON.stringify(existingData));
     // } else {
-      // If there is no existing data, create a new array with the new data and store it
-      setLocalStorage("so-cart", product); 
+    //   // If there is no existing data, create a new array with the new data and store it
+      setLocalStorage("so-cart", productCart); 
     // }
   }
 
-// // add to cart button event handler
-// async function addToCartHandler(e) {
-//     const product = await findProductById(e.target.dataset.id);
-//     addProductToCart(product);
-//   }
-  
-//   // add listener to Add to Cart button
-//   document
-//     .getElementById("addToCart")
-//     .addEventListener("click", addToCartHandler);
-  
+  async function addToCartHandler(e) {
+    const product = await findProductById(e.target.dataset.id);
+    addProductToCart(product);
+  }
 
 function productDetailsTemplate(){
     return `<h3>${product.Brand.Name}</h3>
