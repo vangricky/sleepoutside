@@ -18,22 +18,22 @@ export default async function productDetails(productId, selector){
 
 function addProductToCart(productCart) {
   
-    // // Retrieve existing data from local storage
-    // let existingData = getLocalStorage("so-cart");
-    // // If there is existing data, append the new data to it
-    // if (existingData) {
-    //   existingData.push(productCart);
-    //    localStorage.setItem("so-cart", JSON.stringify(existingData));
-    // } else {
-    //   // If there is no existing data, create a new array with the new data and store it
-      setLocalStorage("so-cart", productCart); 
-    // }
-  }
+  // // Retrieve existing data from local storage
+  // let existingData = getLocalStorage("so-cart");
+  // // If there is existing data, append the new data to it
+  // if (existingData) {
+  //   existingData.push(productCart);
+  //    localStorage.setItem("so-cart", JSON.stringify(existingData));
+  // } else {
+  //   // If there is no existing data, create a new array with the new data and store it
+    setLocalStorage("so-cart", productCart); 
+  // }
+}
 
-  async function addToCartHandler(e) {
-    const product = await findProductById(e.target.dataset.id);
-    addProductToCart(product);
-  }
+async function addToCartHandler(e) {
+  const product = await findProductById(e.target.dataset.id);
+  addProductToCart(product);
+}
 
 function productDetailsTemplate(){
     return `<h3>${product.Brand.Name}</h3>
