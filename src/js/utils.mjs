@@ -1,3 +1,6 @@
+import MainHeader from "./components/MainHeader.svelte";
+import MainFooter from "./components/MainFooter.svelte";
+
 // wrapper for querySelector...returns matching element
 export function qs(selector, parent = document) {
   return parent.querySelector(selector);
@@ -20,6 +23,18 @@ export function setClick(selector, callback) {
     callback();
   });
   qs(selector).addEventListener("click", callback);
+}
+
+// Function to render content for the header in footer dynamically
+export function renderHeaderFooter(){
+  new MainHeader({
+    target: document.querySelector("#main-header"),
+    props: { cartCount: 3},
+});
+
+  new MainFooter({
+    target: document.querySelector("#main-footer"),
+  })
 }
 
 export function getParam(param) {

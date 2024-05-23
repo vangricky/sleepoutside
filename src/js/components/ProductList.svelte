@@ -2,6 +2,7 @@
 import { getData } from "../productData.mjs";
 import ProductSummary from './ProductSummary.svelte';
 
+export let cartCount = 0;
 export let category;
 let promise = getData(category);
 
