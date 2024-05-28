@@ -3,30 +3,31 @@ import { setLocalStorage, getLocalStorage } from "./utils.mjs";
 
 let product = {};
 
-export default async function productDetails(productId, selector){
+export default async function productDetails(productId, selector) {
     product = await findProductById(productId);
     const el = document.querySelector(selector);
     el.insertAdjacentHTML("afterBegin", productDetailsTemplate(product));
-    document.getElementById("addToCart").addEventListener("click", addProductToCart);
     
-    // add listener to Add to Cart button
-    document
-      .getElementById("addToCart")
-      .addEventListener("click", addToCartHandler);
-
-}
-
-function addProductToCart(productCart) {
-  
-    setLocalStorage("so-cart", productCart);
+    document.getElementById("addToCart").addEventListener("click", addToCartHandler);
 }
 
 async function addToCartHandler(e) {
-  const product = await findProductById(e.target.dataset.id);
-  addProductToCart(product);
+    const product = await findProductById(e.target.dataset.id);
+    addProductToCart(product);
 }
 
-function productDetailsTemplate(){
+function addProductToCart(productCart) {
+    let cart = getLocalStorage("so-cart");
+    if (!cart) {
+        cart = [];
+    } else if (!Array.isArray(cart)) {
+        cart = [];
+    }
+    cart.push(productCart);
+    setLocalStorage("so-cart", cart);
+}
+
+function productDetailsTemplate() {
     return `<h3>${product.Brand.Name}</h3>
   <h2 class="divider">${product.NameWithoutBrand}</h2>
   <img
