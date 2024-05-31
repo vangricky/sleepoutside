@@ -37,6 +37,12 @@ export function renderHeaderFooter(){
   })
 }
 
+// get the cart count to diplay
+export function getCartCount(){
+  const count = getLocalStorage("so-cart")?.length?? "";
+  return count;
+}
+
 export function getParam(param) {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);

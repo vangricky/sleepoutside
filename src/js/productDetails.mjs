@@ -25,6 +25,8 @@ function addProductToCart(productCart) {
     }
     cart.push(productCart);
     setLocalStorage("so-cart", cart);
+
+    cartCount.set(cart);
 }
 
 function productDetailsTemplate() {
