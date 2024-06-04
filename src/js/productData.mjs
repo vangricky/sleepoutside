@@ -1,4 +1,4 @@
-const baseURL = import.meta.env.VIRE_SERVER_URL
+const baseURL = import.meta.env.VITE_SERVER_URL
 
 function convertToJson(res) {
   if (res.ok) {
@@ -15,7 +15,7 @@ export async function getData(category) {
 }
 
 export async function findProductById(id) {
-  const response = await fetch(baseURL + `products/search/${id}`);
+  const response = await fetch(baseURL + `product/${id}`);
   const data = await convertToJson(response);
   return data.Result;
 }
