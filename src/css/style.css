@@ -244,3 +244,22 @@ footer {
 .grid-container a {
   text-decoration: none;
 }
+
+.cart-count {
+  background-color: rgb(89, 225, 121);
+  padding-left: 5px;
+  padding-right: 5px;
+  border-radius: 100px;
+  text-align: left;
+  color: white;
+  vertical-align: top;
+  /* display: none; */
+}
+
+.cart a {
+  text-decoration: none;
+}
+
+.total {
+  /* display: none; */
+}

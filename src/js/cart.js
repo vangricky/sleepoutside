@@ -3,9 +3,57 @@ import { getLocalStorage } from "./utils.mjs";
 function renderCartContents() {
   // if cartItem returns null or is empty, then create an empty string
   const cartItems = getLocalStorage("so-cart") || [];
-  const htmlItems = cartItems.map((item) => cartItemTemplate(item));
+  const htmlItems = cartItems.map((item) => cartItemTemplate(item)); 
   document.querySelector(".product-list").innerHTML = htmlItems.join("");
 }
+
+// function showItems() {
+//   // const totalCost = getLocalStorage("so-cart");
+
+
+//   if (getLocalStorage("so-cart")) {
+//     document.querySelector(".total").style.display = "block";
+//     // document.querySelector(".total-product").innerHTML = ;
+//   } else {
+//     document.querySelector(".total").style.display = "none";
+//   }
+// }
+
+function showItems() {
+  // Retrieve the value associated with the key "so-cart" from local storage
+  const cartData = localStorage.getItem("so-cart");
+
+  // Check if cartData is not null (i.e., the key exists in local storage)
+  if (cartData) {
+    // Parse the JSON string into a JavaScript object
+    const cartItems = JSON.parse(cartData);
+
+    // Initialize a variable to keep the sum of FinalPrice values
+    let totalFinalPrice = 0;
+
+    // Iterate over the array of cart items and sum up the FinalPrice values
+    for (let item of cartItems) {
+      // Ensure that FinalPrice is a number before adding it to the total
+      if (item.FinalPrice && !isNaN(item.FinalPrice)) {
+        totalFinalPrice += parseFloat(item.FinalPrice);
+      }
+    }
+
+    // Find the element with the class "total-product" and update its content
+    const totalProductElement = document.querySelector(".total-product");
+    if (totalProductElement) {
+      totalProductElement.textContent = `$${totalFinalPrice.toFixed(2)}`;
+    } else {
+      console.log("Element with class 'total-product' not found.");
+    }
+  } else {
+    console.log("No cart data found in local storage.");
+  }
+}
+
+// Call the function to show items and update the total price
+showItems();
+
 
 function cartItemTemplate(item) {
   const newItem = `<li class="cart-card divider">
@@ -26,4 +74,7 @@ function cartItemTemplate(item) {
   return newItem;
 }
 
+
+
 renderCartContents();
+showItems();
