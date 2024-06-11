@@ -1,5 +1,6 @@
 import MainHeader from "./components/MainHeader.svelte";
 import MainFooter from "./components/MainFooter.svelte";
+import CheckoutForm from "./components/CheckoutForm.svelte"
 
 // wrapper for querySelector...returns matching element
 export function qs(selector, parent = document) {
@@ -48,4 +49,11 @@ export function getParam(param) {
   const urlParams = new URLSearchParams(queryString);
   const product = urlParams.get(param);
   return product;
+}
+
+export function renderForm() {
+  new CheckoutForm({
+    target: document.querySelector(".form"),
+    props: { cartCount: 2 },
+  });
 }

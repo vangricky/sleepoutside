@@ -19,7 +19,7 @@ function renderCartContents() {
 //   }
 // }
 
-function showItems() {
+export function showItems() {
   // Retrieve the value associated with the key "so-cart" from local storage
   const cartData = localStorage.getItem("so-cart");
 
