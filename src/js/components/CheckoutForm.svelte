@@ -1,5 +1,7 @@
 <script>
   import { cartCount } from "../stores.mjs";
+
+
 </script>
 
 <form action="">
@@ -43,7 +45,10 @@
 <form action="">
   <fieldset>
     <legend>Order Summary</legend>
-    <p class="subtotal">Item Subtotal({$cartCount})</p>
-    <!-- <div class="total" type="module">{$showItems}</div> -->
+    <p class="subtotal">Item Subtotal({$cartCount}) <span class="total-product"></span></p>
+    <p class="shipping">Shipping Estimate</p>
+    <p class="tax">Tax</p>
+    <p class="orderTotal">Order Total</p>
+    
   </fieldset>
 </form>
