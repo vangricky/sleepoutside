@@ -1,6 +1,17 @@
 <script>
-  import { cartCount } from "../stores.mjs";
+  import { getLocalStorage } from "../utils.mjs";
+
   let totalFinalPrice = 0;
+  let tax = 0.0;
+  let shipping = 0;
+  let cartCount = getCartCount();
+  let orderTotal = 0;
+
+  function getCartCount(){
+    const count = getLocalStorage("so-cart")?.length?? "";
+    return count;
+  }
+
   function displayTotalPrice() {
     // Retrieve the value associated with the key "so-cart" from local storage
     const cartData = localStorage.getItem("so-cart");
@@ -23,7 +34,6 @@
 
       // Create a new element to display the total price
       const totalPriceElement = document.createElement("div");
-      totalPriceElement.textContent = `Total Price: $${totalFinalPrice.toFixed(2)}`;
 
       // Append the new element to the body or any specific part of the DOM
       document.body.appendChild(totalPriceElement);
@@ -34,7 +44,21 @@
     }
     return totalFinalPrice;
   }
+
+  function displayOrderTotal(){
+    tax = totalFinalPrice * 0.06;
+
+    if (cartCount > 1){
+      cartCount -= 1;
+      shipping = cartCount * 2 + 10;
+      cartCount += 1;
+    }
+
+    orderTotal = totalFinalPrice + tax + shipping;
+  }
+
   displayTotalPrice();
+  displayOrderTotal();
 </script>
 
 <form action="">
@@ -79,15 +103,15 @@
   <fieldset>
     <legend>Order Summary</legend>
     <p class="subtotal">
-      Item Subtotal({$cartCount})
+      Item Subtotal({cartCount})
       <span>${totalFinalPrice}</span>
     </p>
     <p class="shipping">
-      Shipping Estimate <span
-        >$10 for the first item plus $2 for each additional item
+      Shipping Estimate <span>
+        ${shipping}
       </span>
     </p>
-    <p class="tax">Tax <span>6%</span></p>
-    <p class="orderTotal"><strong>Order Total</strong></p>
+    <p class="tax">Tax <span>${tax.toFixed(2)}</span></p>
+    <p class="orderTotal"><strong>Order Total</strong><span>${orderTotal.toFixed(2)}</span></p>
   </fieldset>
 </form>

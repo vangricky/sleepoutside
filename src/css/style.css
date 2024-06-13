@@ -347,3 +347,8 @@ form label.top input:required:valid {
   display: flex;
   justify-content: space-between;
 }
+
+.orderTotal{
+  display: flex;
+  justify-content: space-between;
+}
