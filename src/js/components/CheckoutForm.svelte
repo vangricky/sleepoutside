@@ -24,14 +24,14 @@
   <fieldset>
     <legend>Payment</legend>
     <label class="top"
-      >Card number<input type="text" name="cardNumber" required /></label
+      >Card number<input type="number" name="cardNumber" required /></label
     >
     <label class="top"
       >Expiration<input type="text" name="expiration" required /></label
     >
     <label class="top"
       >Security Code<input
-        type="text"
+        type="number"
         name="code"
         placeholder=""
         required
