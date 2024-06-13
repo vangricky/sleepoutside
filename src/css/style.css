@@ -336,3 +336,8 @@ form label.top input:required {
 form label.top input:required:valid {
   border-left: green solid 6px;
 }
+
+.subtotal {
+  display: flex;
+  justify-content: space-between;
+}
