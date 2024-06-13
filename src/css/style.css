@@ -332,7 +332,18 @@ form label.top input:required:valid {
   border-left: green solid 6px;
 }
 
+/* Order Summary */
+
 .subtotal {
+  display: flex;
+  justify-content: space-between;
+}
+
+.shipping {
+  display: flex;
+  justify-content: space-between;
+}
+.tax {
   display: flex;
   justify-content: space-between;
 }

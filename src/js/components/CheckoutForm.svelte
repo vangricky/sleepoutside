@@ -46,8 +46,12 @@
     <p class="subtotal">
       Item Subtotal({$cartCount}) <span class="total-product"></span>
     </p>
-    <p class="shipping">Shipping Estimate</p>
-    <p class="tax">Tax</p>
+    <p class="shipping">
+      Shipping Estimate <span
+        >$10 for the first item plus $2 for each additional item
+      </span>
+    </p>
+    <p class="tax">Tax <span>6%</span></p>
     <p class="orderTotal"><strong>Order Total</strong></p>
   </fieldset>
 </form>
