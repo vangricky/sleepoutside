@@ -1,5 +1,6 @@
 <script>
-  import { getLocalStorage } from "../utils.mjs";
+  import { getLocalStorage, formDataToJSON } from "../utils.mjs";
+  import { checkout } from "../externalServices.mjs";
 
   let totalFinalPrice = 0;
   let tax = 0.0;
@@ -57,38 +58,73 @@
     orderTotal = totalFinalPrice + tax + shipping;
   }
 
+  const packageItems = function (items) {
+    const simplifiedItems = items.map((item) => {
+      console.log(item);
+      return {
+        id: item.Id,
+        price: item.FinalPrice,
+        name: item.Name,
+        quantity: 1,
+      };
+    });
+    return simplifiedItems;
+  };
+
+  const handleSubmit = async function (e) {
+    const json = formDataToJSON(this);
+    json.orderDate = new Date();
+    json.orderTotal = orderTotal;
+    json.tax = tax;
+    json.shipping = shipping;
+    json.items = packageItems(list);
+    console.log(json);
+    try {
+      const res = await checkout(json);
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   displayTotalPrice();
   displayOrderTotal();
 </script>
 
-<form action="">
+<form name="checkout" on:submit|preventDefault={handleSubmit}>
   <fieldset>
     <legend>Shipping</legend>
-    <label class="top"
-      >First Name<input type="text" name="fname" required /></label
+    <label for="fname" class="top"
+      >First Name<input for="fname" type="text" name="fname" required /></label
     >
-    <label class="top"
+    <label for="lname" class="top"
       >Last Name<input type="text" name="lname" required /></label
     >
-    <label class="top"
+    <label for="street" class="top"
       >Street<input type="text" name="street" placeholder="" required /></label
     >
-    <label class="top">City<input type="text" name="city" required /></label>
-    <label class="top">State<input type="text" name="state" required /></label>
-    <label class="top">Zip<input type="number" name="zip" required /></label>
+    <label for="cityt" class="top"
+      >City<input type="text" name="city" required /></label
+    >
+    <label for="state" class="top"
+      >State<input type="text" name="state" required /></label
+    >
+    <label for="zip" class="top"
+      >Zip<input type="number" name="zip" required /></label
+    >
   </fieldset>
 </form>
 
 <form action="">
   <fieldset>
     <legend>Payment</legend>
-    <label class="top"
+    <label for="cardNumber" class="top"
       >Card number<input type="number" name="cardNumber" required /></label
     >
-    <label class="top"
+    <label for="expiration" class="top"
       >Expiration<input type="text" name="expiration" required /></label
     >
-    <label class="top"
+    <label for="code" class="top"
       >Security Code<input
         type="number"
         name="code"
@@ -102,18 +138,19 @@
 <form action="">
   <fieldset>
     <legend>Order Summary</legend>
-    <p class="subtotal">
+    <p for="cartTotal" class="subtotal">
       Item Subtotal({cartCount})
       <span>${totalFinalPrice}</span>
     </p>
-    <p class="shipping">
+    <p for="shipping" class="shipping">
       Shipping Estimate <span>
         ${shipping}
       </span>
     </p>
-    <p class="tax">Tax <span>${tax.toFixed(2)}</span></p>
-    <p class="orderTotal">
+    <p for="tax" class="tax">Tax <span>${tax.toFixed(2)}</span></p>
+    <p for="orderTotal" class="orderTotal">
       <strong>Order Total</strong><span>${orderTotal.toFixed(2)}</span>
     </p>
+    <button id="checkoutSubmit" type="submit">Checkout</button>
   </fieldset>
 </form>
