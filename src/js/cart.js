@@ -54,6 +54,41 @@ export function showItems() {
 // Call the function to show items and update the total price
 showItems();
 
+export function displayTotalPrice() {
+  // Retrieve the value associated with the key "so-cart" from local storage
+  const cartData = localStorage.getItem("so-cart");
+
+  // Check if cartData is not null (i.e., the key exists in local storage)
+  if (cartData) {
+    // Parse the JSON string into a JavaScript object
+    const cartItems = JSON.parse(cartData);
+
+    // Initialize a variable to keep the sum of FinalPrice values
+    let totalFinalPrice = 0;
+
+    // Iterate over the array of cart items and sum up the FinalPrice values
+    for (let item of cartItems) {
+      // Ensure that FinalPrice is a number before adding it to the total
+      if (item.FinalPrice && !isNaN(item.FinalPrice)) {
+        totalFinalPrice += parseFloat(item.FinalPrice);
+      }
+    }
+
+    // Create a new element to display the total price
+    const totalPriceElement = document.createElement('div');
+    totalPriceElement.textContent = `Total Price: $${totalFinalPrice.toFixed(2)}`;
+
+    // Append the new element to the body or any specific part of the DOM
+    document.body.appendChild(totalPriceElement);
+    // Alternatively, you can append to a specific element like this:
+    // document.querySelector('selector').appendChild(totalPriceElement);
+
+  } else {
+    console.log("No cart data found in local storage.");
+  }
+}
+
+
 
 function cartItemTemplate(item) {
   const newItem = `<li class="cart-card divider">

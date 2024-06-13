@@ -1,5 +1,40 @@
 <script>
   import { cartCount } from "../stores.mjs";
+  let totalFinalPrice = 0;
+  function displayTotalPrice() {
+    // Retrieve the value associated with the key "so-cart" from local storage
+    const cartData = localStorage.getItem("so-cart");
+
+    // Check if cartData is not null (i.e., the key exists in local storage)
+    if (cartData) {
+      // Parse the JSON string into a JavaScript object
+      const cartItems = JSON.parse(cartData);
+
+      // Initialize a variable to keep the sum of FinalPrice values
+      totalFinalPrice = 0;
+
+      // Iterate over the array of cart items and sum up the FinalPrice values
+      for (let item of cartItems) {
+        // Ensure that FinalPrice is a number before adding it to the total
+        if (item.FinalPrice && !isNaN(item.FinalPrice)) {
+          totalFinalPrice += parseFloat(item.FinalPrice);
+        }
+      }
+
+      // Create a new element to display the total price
+      const totalPriceElement = document.createElement("div");
+      totalPriceElement.textContent = `Total Price: $${totalFinalPrice.toFixed(2)}`;
+
+      // Append the new element to the body or any specific part of the DOM
+      document.body.appendChild(totalPriceElement);
+      // Alternatively, you can append to a specific element like this:
+      // document.querySelector('selector').appendChild(totalPriceElement);
+    } else {
+      console.log("No cart data found in local storage.");
+    }
+    return totalFinalPrice;
+  }
+  displayTotalPrice();
 </script>
 
 <form action="">
@@ -44,7 +79,8 @@
   <fieldset>
     <legend>Order Summary</legend>
     <p class="subtotal">
-      Item Subtotal({$cartCount}) <span class="total-product"></span>
+      Item Subtotal({$cartCount})
+      <span>${totalFinalPrice}</span>
     </p>
     <p class="shipping">
       Shipping Estimate <span
