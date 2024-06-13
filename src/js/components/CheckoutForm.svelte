@@ -7,8 +7,8 @@
   let cartCount = getCartCount();
   let orderTotal = 0;
 
-  function getCartCount(){
-    const count = getLocalStorage("so-cart")?.length?? "";
+  function getCartCount() {
+    const count = getLocalStorage("so-cart")?.length ?? "";
     return count;
   }
 
@@ -45,10 +45,10 @@
     return totalFinalPrice;
   }
 
-  function displayOrderTotal(){
+  function displayOrderTotal() {
     tax = totalFinalPrice * 0.06;
 
-    if (cartCount > 1){
+    if (cartCount >= 1) {
       cartCount -= 1;
       shipping = cartCount * 2 + 10;
       cartCount += 1;
@@ -112,6 +112,8 @@
       </span>
     </p>
     <p class="tax">Tax <span>${tax.toFixed(2)}</span></p>
-    <p class="orderTotal"><strong>Order Total</strong><span>${orderTotal.toFixed(2)}</span></p>
+    <p class="orderTotal">
+      <strong>Order Total</strong><span>${orderTotal.toFixed(2)}</span>
+    </p>
   </fieldset>
 </form>

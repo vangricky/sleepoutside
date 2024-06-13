@@ -1,16 +1,15 @@
 <script>
-import { getData } from "../productData.mjs";
-import ProductSummary from './ProductSummary.svelte';
+  import { getProductsByCategory } from "../externalServices.mjs";
+  import ProductSummary from "./ProductSummary.svelte";
 
-export let category;
+  export let category;
 
-let promise = getData(category);
-
+  let promise = getProductsByCategory(category);
 </script>
 
 <h2>Top Products: {category}</h2>
 {#await promise}
   Loading
 {:then products}
-<ProductSummary {products}/>
-{/await} 
+  <ProductSummary {products} />
+{/await}
