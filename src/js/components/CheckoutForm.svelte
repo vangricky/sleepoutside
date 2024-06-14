@@ -7,6 +7,7 @@
   let shipping = 0;
   let cartCount = getCartCount();
   let orderTotal = 0;
+  let cartItems = [];
 
   function getCartCount() {
     const count = getLocalStorage("so-cart")?.length ?? "";
@@ -77,7 +78,7 @@
     json.orderTotal = orderTotal;
     json.tax = tax;
     json.shipping = shipping;
-    json.items = packageItems(list);
+    json.items = packageItems(cartItems);
     console.log(json);
     try {
       const res = await checkout(json);
@@ -94,48 +95,58 @@
 <form name="checkout" on:submit|preventDefault={handleSubmit}>
   <fieldset>
     <legend>Shipping</legend>
-    <label for="fname" class="top"
-      >First Name<input for="fname" type="text" name="fname" required /></label
-    >
-    <label for="lname" class="top"
-      >Last Name<input type="text" name="lname" required /></label
-    >
-    <label for="street" class="top"
-      >Street<input type="text" name="street" placeholder="" required /></label
-    >
-    <label for="cityt" class="top"
-      >City<input type="text" name="city" required /></label
-    >
-    <label for="state" class="top"
-      >State<input type="text" name="state" required /></label
-    >
-    <label for="zip" class="top"
-      >Zip<input type="number" name="zip" required /></label
-    >
-  </fieldset>
-</form>
+    <label for="fname" class="top">First Name</label><input
+      type="text"
+      name="fname"
+      required
+    />
 
-<form action="">
+    <label for="lname" class="top">Last Name</label><input
+      type="text"
+      name="lname"
+      required
+    />
+    <label for="street" class="top">Street</label><input
+      type="text"
+      name="street"
+      placeholder=""
+      required
+    />
+    <label for="cityt" class="top">City</label><input
+      type="text"
+      name="city"
+      required
+    />
+    <label for="state" class="top">State</label><input
+      type="text"
+      name="state"
+      required
+    />
+    <label for="zip" class="top">Zip</label><input
+      type="number"
+      name="zip"
+      required
+    />
+  </fieldset>
   <fieldset>
     <legend>Payment</legend>
-    <label for="cardNumber" class="top"
-      >Card number<input type="number" name="cardNumber" required /></label
-    >
-    <label for="expiration" class="top"
-      >Expiration<input type="text" name="expiration" required /></label
-    >
-    <label for="code" class="top"
-      >Security Code<input
-        type="number"
-        name="code"
-        placeholder=""
-        required
-      /></label
-    >
+    <label for="cardNumber" class="top">Card number</label><input
+      type="number"
+      name="cardNumber"
+      required
+    />
+    <label for="expiration" class="top">Expiration</label><input
+      type="text"
+      name="expiration"
+      required
+    />
+    <label for="code" class="top">Security Code</label><input
+      type="number"
+      name="code"
+      placeholder=""
+      required
+    />
   </fieldset>
-</form>
-
-<form action="">
   <fieldset>
     <legend>Order Summary</legend>
     <p for="cartTotal" class="subtotal">
@@ -151,6 +162,6 @@
     <p for="orderTotal" class="orderTotal">
       <strong>Order Total</strong><span>${orderTotal.toFixed(2)}</span>
     </p>
-    <button id="checkoutSubmit" type="submit">Checkout</button>
   </fieldset>
+  <button id="checkoutSubmit" type="submit">Checkout</button>
 </form>
