@@ -7,7 +7,7 @@
   let shipping = 0;
   let cartCount = getCartCount();
   let orderTotal = 0;
-  let cartItems = [];
+  let cartItems = getLocalStorage("so-cart") || [];
 
   function getCartCount() {
     const count = getLocalStorage("so-cart")?.length ?? "";
