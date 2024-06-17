@@ -1,6 +1,7 @@
 <script>
   import { getLocalStorage, formDataToJSON } from "../utils.mjs";
   import { checkout } from "../externalServices.mjs";
+  import { alertMessage } from "../utils.mjs";
 
   let totalFinalPrice = 0;
   let tax = 0.0;
@@ -85,6 +86,9 @@
       console.log(res);
     } catch (err) {
       console.log(err);
+      for (let message in err.message){
+        alertMessage(err.message[message]);
+      }
     }
   };
 
