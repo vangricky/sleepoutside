@@ -37,3 +37,23 @@ export async function findProductById(id) {
   const data = await convertToJson(response);
   return data.Result;
 }
+
+export function loginRequest(creds) {
+  const loginReq = {
+  method: "POST",
+  headers: {
+    "email": "user@gmail.com",
+    "password": "user1"
+  },
+}
+}
+
+export function auth() {
+  const options = {
+    method: "GET",
+    headers: {
+      "Authorization": `Bearer ${token}`,
+    }
+  };
+  return fetch(baseURL + "checkout/", options).then(convertToJson);
+}
