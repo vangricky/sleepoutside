@@ -38,22 +38,25 @@ export async function findProductById(id) {
   return data.Result;
 }
 
-export function loginRequest(creds) {
-  const loginReq = {
-  method: "POST",
-  headers: {
-    "email": "user@gmail.com",
-    "password": "user1"
-  },
-}
+export async function loginRequest(user) {
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(user),
+  };
+  const response = await fetch(baseURL + "/login", options).then(convertToJson);
+  return response.accessToken;
 }
 
-export function auth() {
+export async function auth() {
   const options = {
     method: "GET",
     headers: {
       "Authorization": `Bearer ${token}`,
-    }
+    },
   };
-  return fetch(baseURL + "checkout/", options).then(convertToJson);
+  return await fetch(baseURL + "/orders", options).then(convertToJson)
 }
+

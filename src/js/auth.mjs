@@ -19,9 +19,9 @@ export async function login(creds, redirect = "/") {
 export function isTokenValid(token) {
     if (token) {
         const decoded = jwt_decode(token) ;
-        const currentDate = new Date();
-        if (decoded.exp * 1000 < currentDate.geetTime()){
-            console.log(`Token has expired.`)
+        let currentDate = new Date();
+        if (decoded.exp * 1000 < currentDate.getTime()){
+            console.log("Token has expired.")
             return false;
         } else {
             console.log("Valid token.")
@@ -32,12 +32,13 @@ export function isTokenValid(token) {
 };
 
 export function checkLogin() {
-    const getToken = getLocalStorage("so-token")
+    const getToken = getLocalStorage("so-token");
     isTokenValid(getToken);
 
     if (!isTokenValid) {
         localStorage.removeItem("so-token")
         const location = window.location;
+        console.log(location);
         window.location = `/login/index.html?redirect=${location.pathname}`;
     } else return getToken;
 };

@@ -1,21 +1,21 @@
-import { doc } from "prettier";
 import { renderHeaderFooter } from "./utils.mjs"
 import { getParam } from "./utils.mjs"
-import { login, isTokenValid, checkLogin } from "./auth.mjs";
+import { login, checkLogin } from "./auth.mjs";
 
 
 const loginBtn = document.querySelector("#loginButton");
-loginBtn.addEventListener(onclick, retrieveData)
+loginBtn.addEventListener("click", retrieveData)
 
 function retrieveData() {
-    let username = document.querySelector("#username").value
-    let password = document.querySelector("#password").value
+    let username = document.querySelector("#username").value;
+    let password = document.querySelector("#password").value;
+    login({username, password}, redirect);
 }
 
 
 const redirect = getParam("redirect");
-function login(redirect) {
-    
-}
+
 
 renderHeaderFooter();
+checkLogin()
+
