@@ -46,17 +46,27 @@ export async function loginRequest(user) {
     },
     body: JSON.stringify(user),
   };
-  const response = await fetch(baseURL + "/login", options).then(convertToJson);
+  const response = await fetch(baseURL + "login", options).then(convertToJson);
   return response.accessToken;
 }
 
-export async function auth() {
+// export async function auth() {
+//   const options = {
+//     method: "GET",
+//     headers: {
+//       "Authorization": `Bearer ${token}`,
+//     },
+//   };
+//   return await fetch(baseURL + "orders", options).then(convertToJson)
+// }
+
+export async function getOrders(token) {
   const options = {
     method: "GET",
     headers: {
-      "Authorization": `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
     },
   };
-  return await fetch(baseURL + "/orders", options).then(convertToJson)
+  const response = await fetch(baseURL + "orders", options).then(convertToJson);
+  return response;
 }
-

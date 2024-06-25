@@ -348,7 +348,27 @@ form label.top input:required:valid {
   justify-content: space-between;
 }
 
-.orderTotal{
+.orderTotal {
   display: flex;
   justify-content: space-between;
+}
+
+.signin {
+  margin-top: 5px;
+  padding: 18px;
+  padding-left: 650px;
+}
+
+.signin a {
+  padding: 10px;
+  border: 1px solid black;
+  text-decoration: none;
+  border-radius: 7px;
+  transition: 0.2s ease;
+  color: black;
+}
+
+.signin a:hover {
+  background-color: green;
+  color: white;
 }

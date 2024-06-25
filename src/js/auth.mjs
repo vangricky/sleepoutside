@@ -1,6 +1,6 @@
 import { loginRequest } from "./externalServices.mjs";
 import { alertMessage, getLocalStorage, setLocalStorage } from "./utils.mjs";
-import jwt_decode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
 // const log = "http://server-nodejs.cit.byui.edu:3000/login"
 const tokenKey = "so-token";
@@ -10,7 +10,7 @@ export async function login(creds, redirect = "/") {
         const token = await loginRequest(creds);
         setLocalStorage(tokenKey, token);
         window.location = redirect;
-    } catch(err) {
+    } catch (err) {
         alertMessage(err.message.message);
     }
 
@@ -18,7 +18,7 @@ export async function login(creds, redirect = "/") {
 
 export function isTokenValid(token) {
     if (token) {
-        const decoded = jwt_decode(token) ;
+        const decoded = jwtDecode(token) ;
         let currentDate = new Date();
         if (decoded.exp * 1000 < currentDate.getTime()){
             console.log("Token has expired.")
@@ -32,11 +32,11 @@ export function isTokenValid(token) {
 };
 
 export function checkLogin() {
-    const getToken = getLocalStorage("so-token");
-    isTokenValid(getToken);
+    const getToken = getLocalStorage(tokenKey);
+    const validToken = isTokenValid(getToken);
 
-    if (!isTokenValid) {
-        localStorage.removeItem("so-token")
+    if (!validToken) {
+        localStorage.removeItem(tokenKey)
         const location = window.location;
         console.log(location);
         window.location = `/login/index.html?redirect=${location.pathname}`;
